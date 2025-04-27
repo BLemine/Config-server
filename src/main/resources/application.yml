@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/configdb
+    password: root
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        jdbc:
+          sql: SELECT key, value FROM properties WHERE application=? AND profile=? AND label=?
+          enabled: true
+          order: 1
+  profiles:
+    active: jdbc
+server:
+  port: 8888
+
