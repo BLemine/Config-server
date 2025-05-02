@@ -9,12 +9,24 @@ spring:
   cloud:
     config:
       server:
-        jdbc:
-          sql: SELECT key, value FROM properties WHERE application=? AND profile=? AND label=?
-          enabled: true
+#        jdbc:
+#          sql: SELECT key, value FROM properties WHERE application=? AND profile=? AND label=?
+#          enabled: true
+#          order: 1
+        vault:
+          authentication: token
+          token: root
           order: 1
+          host: 127.0.0.1
+          port: 8200
+          scheme: http
+          #default-key: spring-boot-datasource-config
+          #default-label: main
+          kv-version: 2
+          profile-separator: /
+
   profiles:
-    active: jdbc
+    active: vault
 server:
   port: 8888
 
